@@ -1,0 +1,153 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="SnifferInBlend.MainWindow"
+	x:Name="SiHong"
+	Title="MainWindow"
+	Height="700" Width="1024" Background="White" FontFamily="Consolas" FontSize="14" Style="{DynamicResource for_noresize_window}" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="SiHong_MouseLeftButtonDown" WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<Storyboard x:Key="StoryboardShowWindow">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SiHong">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource StoryboardShowWindow}"/>
+		</EventTrigger>
+	</Window.Triggers>
+	<Window.Effect>
+		<DropShadowEffect Opacity="0.275" Color="#FF3B3A3A" BlurRadius="11"/>
+	</Window.Effect>
+	
+    <Grid>
+    	<Grid.Background>
+    		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    			<GradientStop Color="#FF02172F" Offset="0"/>
+    			<GradientStop Color="#FF073C60" Offset="1"/>
+    		</LinearGradientBrush>
+    	</Grid.Background>
+        <StackPanel Margin="6,0,6,7">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+                <DockPanel>
+            		<Menu VerticalAlignment="Top" Height="40" Background="#FF021B37"  Width="Auto">
+            			<MenuItem x:Name="MenuItem_Capture" Header="_Capture" Width="Auto" Foreground="White" Height="40" FontSize="21.333" >
+            				<MenuItem x:Name="MenuItem_Interfaces" Header="Interfaces"  InputGestureText="Ctrl+I"  Background="#FF063468" Click="MenuItem_Interfaces_Click"/>
+            				<MenuItem x:Name="MenuItem_CaptureFilters" Header="CaptureFilters" Click="MenuItem_CaptureFilters_Click"  Background="#FF063468"/>
+                            
+            			</MenuItem>
+            			<MenuItem x:Name="MenuItem_Analysis" Header="_Analysis" Width="Auto" Foreground="White" Height ="40" FontSize="21">
+            				<MenuItem x:Name="MenuItem_Statistics" Header="_Statistics" Width="Auto" Foreground="White" Height="40" Background="#FF063468" Click="MenuItem_Statistics_Click_1"/>
+            			</MenuItem>
+            		</Menu>
+            		<StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Right">
+            			<CalendarDayButton x:Name="Button_Minn" Content="_" Margin="0" Width="42" HorizontalAlignment="Right" d:LayoutOverrides="Height" FontSize="18.667" Foreground="#FFF7E2E2" Click="Button_Minn_Click"/>
+            			<CalendarDayButton x:Name="Button_Max" Content="口" Margin="0" Width="42" HorizontalAlignment="Right" d:LayoutOverrides="Height" FontSize="18.667" Foreground="#FFF7E2E2" Click="Button_Max_Click"/>
+            			<CalendarDayButton x:Name="Button_Close" Content="X" Margin="0" Width="49" HorizontalAlignment="Right" d:LayoutOverrides="Height" FontSize="18.667" Foreground="#FFF7E2E2" Click="Button_Close_Click"/>
+            		</StackPanel>
+            	</DockPanel>
+                <ToolBarTray Background="#FF021B37">
+                	<ToolBar VerticalAlignment="Top" Height="58" Background="#FF021B37" Style="{DynamicResource ToolBarStyle1}" IsOverflowOpen="True" Margin="0,0,-149.5,0" >
+                		<Button x:Name="Button_StartCapture"  Content="stop" Click="Button_StarCapture_Click_1" Template="{DynamicResource StartButtonControlTemplate}" Width="60" Margin="0,0,0,24.5" VerticalAlignment="Stretch" Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                		<Button x:Name="Button_StopCapture"  Content="stop" Click="Button_StopCapture_Click_1" Template="{DynamicResource StopButtonControlTemplate}" Width="60" Margin="8,0,0,24.5" VerticalAlignment="Stretch" Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                	</ToolBar>
+                	<ToolBar Background="Black" Style="{DynamicResource ToolBarStyle1}" HorizontalAlignment="Right" Margin="0,0,-175.5,0" Width="24"/>
+                </ToolBarTray>
+                <ToolBar VerticalAlignment="Top" Height="30" Background="#FF021B37" Style="{DynamicResource ToolBarStyle1}" IsOverflowOpen="True">
+                    <ComboBox x:Name="ComboBox_Filter" AllowDrop="True" Text="Input filters here... " Width="200" IsEditable="True" Style="{DynamicResource ComboBoxStyle1}"  Background="#FFF9F9F9" BorderThickness="0" Height="26" BorderBrush="#FF021B37" KeyUp="ComboBox_Filter_KeyUp">
+                        <ComboBoxItem Content="tcp"/>
+                        <ComboBoxItem Content="ip"/>
+                        <ComboBoxItem Content="icmp"/>
+                        <ComboBoxItem Content="http"/>
+                    </ComboBox>
+                    <CalendarDayButton x:Name="Button_FilterApply" Content="Apply" Margin="15,0,0,0" Width="60.483" Background="#FF0D3E76" Foreground="#FFFBFBFB" FontSize="13.333" Click="Button_FilterApply_Click"/>
+                    <CalendarDayButton x:Name="Button_FilterClear" Content="Clear" Margin="15,0,0,0" Width="60.483" Background="#FF0D3E76" Foreground="#FFFBFBFB" FontSize="13.333" Click="Button_FilterClear_Click"/>
+                </ToolBar>
+            </StackPanel>
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="578">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,0,5">
+                    <ListView x:Name="ListView_Packets" MouseDoubleClick="ListView_Packets_MouseDoubleClick_1" ButtonBase.Click="ListView_Packets_Click_1"   IsSynchronizedWithCurrentItem="True" Grid.Column="0"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="ListView_Packets_SelectionChanged" Background="#FF021B37" Style="{DynamicResource ListViewStyle1}" >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="{Binding Background}"/>
+                                <Setter Property="Foreground" Value="{Binding Foreground}"/>
+                                <Setter Property="Panel.Background" Value="{Binding Background}"/>
+                                <Style.Triggers >
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Panel.Background" Value="{Binding Background}"/>
+                                        <Setter Property="Foreground" Value="{Binding Foreground}"/>
+                                        <Setter Property="Background" Value="{Binding Background}"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Panel.Background" Value="{Binding Background_Selected}"/>
+                                        <Setter Property="Background"  Value="{Binding Background_Selected}"/>
+                                        <Setter Property="Foreground" Value="{Binding Foreground_Selected}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="No." DisplayMemberBinding="{Binding Number}" Width="60" />
+                                <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}" Width="100"/>
+                                <GridViewColumn Header="Source" DisplayMemberBinding="{Binding Source}" Width="200"/>
+                                <GridViewColumn Header="Destination" DisplayMemberBinding="{Binding Destination}" Width="200"/>
+                                <GridViewColumn Header="Length" DisplayMemberBinding="{Binding Length}" Width="100"/>
+                                <GridViewColumn Header="Protocol" DisplayMemberBinding="{Binding Protocal}" Width="100"/>
+                                <GridViewColumn Header="Info" DisplayMemberBinding="{Binding Info}"  Width="400"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+                <GridSplitter Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#FF0A4E7E"/>
+                <Grid x:Name="Grid_Detail" Grid.Row="1" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid  Grid.Column="0" x:Name="Grid_TreeViews" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    	<TreeView x:Name="TreeView_Packet" Margin="0,0,0,15.6" Background="#FF042850" Foreground="#FFFFFBFB"  ItemContainerStyle="{DynamicResource TreeViewItemStyle1}" BorderThickness="2,2,2,1">
+                    		<TreeView.BorderBrush>
+                    			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    				<GradientStop Color="#FF021B37" Offset="0"/>
+                    				<GradientStop Color="#FF042850" Offset="1"/>
+                    			</LinearGradientBrush>
+                    		</TreeView.BorderBrush>
+                    	</TreeView>
+                    </Grid>
+                    <GridSplitter Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#FF0A4E7E"/>
+                    <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                        <!--Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions-->
+                        <RichTextBox Name="RichTextBox_Data" Height="Auto" Width="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Background="#FF073C60" Foreground="White" BorderThickness="4,3,3,1">
+                        	<RichTextBox.BorderBrush>
+                        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        			<GradientStop Color="#FF03253D"/>
+                        			<GradientStop Color="#FF0C4168" Offset="1"/>
+                        		</LinearGradientBrush>
+                        	</RichTextBox.BorderBrush>
+                            <FlowDocument >
+                                <Paragraph Name="Paragraph_Data" >
+                                    
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Window>

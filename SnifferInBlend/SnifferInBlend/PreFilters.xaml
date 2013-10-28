@@ -1,0 +1,51 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="SnifferInBlend.PreFilters"
+	x:Name="Window"
+	Title="PreFilters"
+	Width="544" Height="490" ResizeMode="NoResize">
+
+	<Grid x:Name="LayoutRoot">
+		<StackPanel Margin="0" d:LayoutOverrides="Width">
+			<StackPanel Margin="0,23,0,0" Orientation="Horizontal">
+				<GroupBox Header="Edit" Height="279" Width="100" Margin="20,3,0,0">
+					<StackPanel>
+						<Button x:Name="Button_New" Content="_New" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,58,0,0" Width="60"/>
+						<Button x:Name="Button_Delete" Content="_Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,58,0,0" Width="60"/>
+					</StackPanel>
+				</GroupBox>
+				<GroupBox Header="Capture Filter" Width="358.936" Margin="32,0,0,0">
+					<ListView x:Name="ListView_Filters" ItemsSource="{Binding Path=Key}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="ListView_Filters_SelectionChanged_1">
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn Header="Filter Name" Width="300" DisplayMemberBinding="{Binding Path=Key}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+				</GroupBox>
+			</StackPanel>
+			<StackPanel>
+				<GroupBox Header="Properties" Height="80" Margin="20,10,24,0">
+					<Grid Name="Grid_FilterPropery">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="1*"/>
+							<RowDefinition Height="1*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="0.21*"/>
+							<ColumnDefinition Width="0.79*"/>
+						</Grid.ColumnDefinitions>
+						<Label Content="Filter name :" Margin="0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Left"/>
+						<Label Content="Filter string :" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1"/>
+						<TextBox x:Name="TextBox_FilterName" Text="{Binding Path=Key}" Margin="0" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center" />
+						<TextBox x:Name="TextBox_FilterString" Text="{Binding Path=Value}" Margin="0" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Center" Grid.Row="1"/>
+					</Grid>
+				</GroupBox>
+			</StackPanel>
+		</StackPanel>
+		<Button x:Name="Button_OK" Content="_OK" HorizontalAlignment="Right" Click="Button_OK_Click_1" VerticalAlignment="Bottom" Width="75" Margin="0,0,141,8"/>
+		<Button x:Name="Button_Cancel" Click="Button_Cancel_Click_1" Content="_Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Margin="0,0,24,8"/>
+	</Grid>
+</Window>

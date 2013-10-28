@@ -1,0 +1,35 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="SnifferInBlend.Statistics"
+	xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+	xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+	xmlns:CHR="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+	x:Name="Window"
+	Title="Statistics"
+	Width="640" Height="480">
+
+    <Grid x:Name="LayoutRoot">
+    	<WindowsFormsHost Margin="8,8,8,74">
+            <CHR:Chart x:Name="mainChart" Height="300" Width="400">
+                <CHR:Chart.ChartAreas>
+                    <CHR:ChartArea  Name ="ChartArea1" >
+                        <CHR:ChartArea.Area3DStyle>
+                            <CHR:ChartArea3DStyle Enable3D="True" Rotation="20"/>
+                        </CHR:ChartArea.Area3DStyle>
+                    </CHR:ChartArea>
+                </CHR:Chart.ChartAreas>
+                <CHR:Chart.BorderSkin>
+                    <CHR:BorderSkin SkinStyle="Sunken"></CHR:BorderSkin>
+                </CHR:Chart.BorderSkin>
+                <CHR:Chart.Series>
+                    <CHR:Series x:Name="PieChartSeries"  ChartType="Pie"  ChartArea="ChartArea1" Palette="None" ToolTip="#LEGENDTEXT:#VAL" Label="#LEGENDTEXT:#PERCENT{P}">
+                    </CHR:Series>
+                </CHR:Chart.Series>
+                <CHR:Chart.Legends>
+                    <CHR:Legend x:Name="ProtocolLegend"></CHR:Legend>
+                </CHR:Chart.Legends>
+            </CHR:Chart>
+        </WindowsFormsHost>
+    </Grid>
+</Window>
